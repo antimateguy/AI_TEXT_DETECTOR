@@ -1,0 +1,12 @@
+# .gitignore content (create this file)
+data/raw/
+data/processed/
+models/*.pkl
+__pycache__/
+*.pyc
+*.ipynb_checkpoints
+.env
+venv/
+.DS_Store
+reports/*.doc
+reports/*.pdf
