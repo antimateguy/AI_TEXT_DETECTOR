@@ -1,0 +1,10 @@
+flask
+gunicorn
+xgboost
+scikit-learn
+pandas
+numpy
+scipy
+joblib
+nltk
+lime
