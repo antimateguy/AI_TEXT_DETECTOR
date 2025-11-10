@@ -1,12 +1,28 @@
 from flask import Flask, request, jsonify, render_template
-import joblib, re, string, numpy as np
+import os, joblib, re, string, numpy as np
 from scipy.sparse import hstack, csr_matrix
 from nltk.corpus import stopwords
 
 app = Flask(__name__)
 
 # Load model + vectorizer and define features
-xgb_model = joblib.load("./models/xgboost.pkl")
+#xgb_model = joblib.load("./models/xgboost.pkl")
+
+
+app = Flask(__name__)
+
+# --- ✅ Reliable absolute path for Render and local use ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "models", "xgboost.pkl")
+
+# --- Load the model safely ---
+try:
+    model = joblib.load(MODEL_PATH)
+    print("✅ Model loaded successfully from:", MODEL_PATH)
+except FileNotFoundError:
+    print("❌ Model file not found! Make sure 'xgboost.pkl' is inside the models/ folder.")
+    model = None
+
 vectorizer = joblib.load("./models/tfidf_vectorizer.pkl") if \
               joblib.os.path.exists("./models/tfidf_vectorizer.pkl") else None
 stop_words = set(stopwords.words("english"))
